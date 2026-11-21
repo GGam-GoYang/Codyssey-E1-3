@@ -3,8 +3,11 @@ def run_user():
     filter_b = read_matrix("필터 B")
 
     print("필터 저장 완료")
-
     pattern = read_matrix("패턴")
+
+    a_score = calculate_mac(pattern, filter_a)
+    b_score = calculate_mac(pattern, filter_b)
+    print(f"필터 A 점수 : {a_score}, 필터 B 점수 : {b_score}")
 
 def read_matrix(name):
     res = []
@@ -25,5 +28,13 @@ def read_matrix(name):
 
             res.append(inp)
             break
+
+    return res
+
+def calculate_mac(pattern, weights):
+    res = 0
+    for i, j in zip(pattern, weights):
+        for k, l in zip(i, j):
+            res += k*l
 
     return res
