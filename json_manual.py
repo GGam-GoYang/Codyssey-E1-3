@@ -43,12 +43,48 @@ def check_matrix(matrix, n):
             if isinstance(j, bool) or not isinstance(j, (int, float)):
                 raise ValueError("모든 원소는 숫자여야 합니다!")
 
-
     return
-             
+
+def load_filters(raw_filters):
+    filters = {}
+    errors = {}
+
+    for n in [5, 13, 25]:
+        try:
+            if not isinstance(raw_filters, dict):
+                raise ValueError("filters는 딕셔너리 형태여야 합니다!")
+
+            filte = raw_filters.get(f"size_{n}")
+
+            if not isinstance(filte, dict):
+                raise ValueError("필터 그룹은 딕셔너리 형태여야 합니다!")
+
+            converted = {}
+
+            for label, value in filte.items():
+                name = normalize_label(label)
+
+                if name in converted:
+                    raise ValueError("같은 라벨의 필터가 중복됐습니다!")
+
+                check_matrix(value, n)
+                converted[name] = value
+
+            if "Cross" not in converted or "X" not in converted:
+                raise ValueError("Cross와 X 필터가 모두 필요합니다!")
+
+            filters[n] = converted 
+
+        except ValueError as e:
+            errors[n] = str(e)
+
+    return filters, errors             
      
 
 def run_json():
     data = load_json(path)
+    filters, errors = load_filters(data.get("filters"))
+    print(filters.keys()) 
+    print(errors)        
     if data is None:
          return
