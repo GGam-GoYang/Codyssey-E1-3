@@ -1,0 +1,71 @@
+메뉴 선택
+1 : 사용자 입력
+2 : JSON 모드
+입력 : 2
+size_5: 필터 로드 완료 (Cross, X)
+size_13: 필터 로드 완료 (Cross, X)
+size_25: 필터 로드 완료 (Cross, X)
+
+[size_5_1]
+Cross 점수: 0.9
+X 점수: 0.8999999999999999
+판정: UNDECIDED | expected: X
+FAIL: 동점(UNDECIDED)으로 expected와 불일치
+
+[size_5_2]
+Cross 점수: 8.9
+X 점수: 0.1
+판정: Cross | expected: Cross
+PASS
+
+[size_13_1]
+Cross 점수: 0.3
+X 점수: 14.700000000000008
+판정: X | expected: X
+PASS
+
+[size_13_2]
+Cross 점수: 7.499999999999997
+X 점수: 7.5
+판정: UNDECIDED | expected: Cross
+FAIL: 동점(UNDECIDED)으로 expected와 불일치
+
+[size_25_1]
+Cross 점수: 4.9
+X 점수: 4.899999999999999
+판정: UNDECIDED | expected: X
+FAIL: 동점(UNDECIDED)으로 expected와 불일치
+
+[size_25_2]
+Cross 점수: 52.9
+X 점수: 0.1
+판정: Cross | expected: Cross
+PASS
+size_3: 측정 전용 배열 사용 (판정 집계 제외)
+
+[성능 분석 / 각 10회 평균 / 필터 한 개당 N^2 MAC]
+크기 | 필터 | 평균 시간(ms) | MAC 횟수
+3x3 | Cross | 0.000960 | 9
+3x3 | X | 0.000980 | 9
+5x5 | Cross | 0.001360 | 25
+5x5 | X | 0.001300 | 25
+13x13 | Cross | 0.005370 | 169
+13x13 | X | 0.005350 | 169
+25x25 | Cross | 0.015980 | 625
+25x25 | X | 0.015870 | 625
+
+[보너스 / 2차원 vs 1차원 / 각 1000회 평균]
+크기 | 필터 | 2차원 ms | 1차원 ms | 변환 ms | 점수 일치
+3x3 | Cross | 0.000591 | 0.000385 | 0.002500 | True
+3x3 | X | 0.000579 | 0.000377 | 0.001600 | True
+5x5 | Cross | 0.000964 | 0.000551 | 0.004800 | True
+5x5 | X | 0.000927 | 0.000550 | 0.002800 | True
+13x13 | Cross | 0.003968 | 0.002971 | 0.013500 | True
+13x13 | X | 0.003993 | 0.002960 | 0.013100 | True
+25x25 | Cross | 0.013118 | 0.010821 | 0.028300 | True
+25x25 | X | 0.012991 | 0.012403 | 0.037500 | True
+
+전체: 6 | 통과: 3 | 실패: 3
+- size_5_1: 동점(UNDECIDED)으로 expected와 불일치
+- size_13_2: 동점(UNDECIDED)으로 expected와 불일치
+- size_25_1: 동점(UNDECIDED)으로 expected와 불일치
