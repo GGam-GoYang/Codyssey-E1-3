@@ -7,10 +7,14 @@ def select_mode():
         print("메뉴 선택")
         print("1 : 사용자 입력")
         print("2 : JSON 모드")
-
-        if (inp := int(input("입력 : "))) not in [1, 2]:
-            print("1 또는 2를 선택하셔야 합니다!")
+        try:
+            if (inp := int(input("입력 : "))) not in [1, 2]:
+                print("1 또는 2를 선택하셔야 합니다!")
+                continue
+        except ValueError:
+            print("정수만 입력 가능합니다!")
             continue
+        
         return inp
         
 
