@@ -1,4 +1,8 @@
+import math
+from calculator import calculate_mac, decide_label
+
 def run_user():
+    """파라미터 없음. 필터 A/B와 패턴을 입력받고 계산·판정·시간을 출력한다. 반환: None."""
     filter_a = read_matrix("필터 A")
     filter_b = read_matrix("필터 B")
 
@@ -10,9 +14,10 @@ def run_user():
     print(f"필터 A 점수 : {a_score}, 필터 B 점수 : {b_score}")
     label = decide_label(a_score, b_score, "A", "B")
 
-    print(f"판정 결과 : {label}")
+    print("판정 결과 :", "판정 불가" if label == "UNDECIDED" else label)
 
 def read_matrix(name):
+    """name: 안내용 이름. 반환: 3x3 실수 배열. 숫자·열 개수 오류는 같은 행을 재입력."""
     res = []
     print(f"{name} 입력")
 
@@ -29,21 +34,12 @@ def read_matrix(name):
                 print("숫자는 3개를 입력해야 합니다!")
                 continue
 
+            if not all(math.isfinite(value) for value in inp):
+                print("유한한 숫자를 입력해주세요!")
+                continue
+
             res.append(inp)
             break
 
     return res
 
-def calculate_mac(pattern, weights):
-    res = 0
-    for i, j in zip(pattern, weights):
-        for k, l in zip(i, j):
-            res += k*l
-
-    return res
-
-def decide_label(a_score, b_score, a_label, b_label, epsilon=1e-9):
-    if abs(a_score-b_score) < epsilon:
-        return "판정 불가"
-
-    return a_label if a_score > b_score else b_label

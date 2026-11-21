@@ -3,6 +3,7 @@ from json_manual import run_json
 
 
 def select_mode():
+    """파라미터 없음. 메뉴를 반복 입력받는다. 반환: 정수 1 또는 2."""
     while True:
         print("메뉴 선택")
         print("1 : 사용자 입력")
@@ -19,6 +20,7 @@ def select_mode():
         
 
 def main():
+    """파라미터 없음. 선택한 모드를 실행한다. 반환: None."""
     inp = select_mode()
     if inp == 1:
         run_user()
@@ -26,4 +28,9 @@ def main():
         run_json()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (KeyboardInterrupt, EOFError):
+        print("\n입력이 종료되었습니다.")
+    except ValueError as error:
+        print("계산 오류:", error)
