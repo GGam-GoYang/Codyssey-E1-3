@@ -78,13 +78,37 @@ def load_filters(raw_filters):
         except ValueError as e:
             errors[n] = str(e)
 
-    return filters, errors             
+    return filters, errors     
+
+def get_pattern_size(case_id):
+    if not isinstance(case_id, str):
+        raise ValueError("패턴 키는 문자열이어야 합니다!")
+
+    parts = case_id.split("_")
+
+    if len(parts) != 3:
+        raise ValueError("패턴 키는 size_N_번호 형식이어야 합니다!")
+
+    if parts[0] != "size":
+        raise ValueError("패턴 키는 size로 시작해야 합니다!")
+
+    try:
+        n = int(parts[1])
+        index = int(parts[2])
+    except ValueError:
+        raise ValueError("크기와 번호는 정수여야 합니다!")
+
+    if n <= 0 or index <= 0:
+        raise ValueError("크기와 번호는 양의 정수여야 합니다!")
+
+    return n
      
 
 def run_json():
     data = load_json(path)
+    
+    if data is None:
+         return
     filters, errors = load_filters(data.get("filters"))
     print(filters.keys()) 
     print(errors)        
-    if data is None:
-         return
