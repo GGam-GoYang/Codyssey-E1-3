@@ -1,4 +1,5 @@
 import math
+from performance import print_performance
 from calculator import calculate_mac, decide_label
 
 def run_user():
@@ -15,6 +16,7 @@ def run_user():
     label = decide_label(a_score, b_score, "A", "B")
 
     print("판정 결과 :", "판정 불가" if label == "UNDECIDED" else label)
+    print_performance({3: (pattern, filter_a, filter_b)}, labels=("A", "B"))
 
 def read_matrix(name):
     """name: 안내용 이름. 반환: 3x3 실수 배열. 숫자·열 개수 오류는 같은 행을 재입력."""

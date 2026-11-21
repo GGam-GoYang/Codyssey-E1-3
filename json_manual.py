@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from performance import print_performance, prepare_samples
 from calculator import calculate_mac, decide_label, normalize_label, check_matrix
 
 DATA_PATH = Path(__file__).with_name("data.json")
@@ -142,7 +143,9 @@ def run_json(path=DATA_PATH):
         results.append(result)
         print("PASS" if result["passed"] else "FAIL: " + result["reason"])
 
-    # PERFORMANCE
+    samples = prepare_samples(samples)
+    print_performance(samples)
+    # BONUS
     failed = [result for result in results if not result["passed"]]
     print(f"\n전체: {len(results)} | 통과: {len(results) - len(failed)} | 실패: {len(failed)}")
     for result in failed:
